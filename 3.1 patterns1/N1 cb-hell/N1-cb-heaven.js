@@ -17,13 +17,12 @@ const readdirCB = (error, files) => {
   });
 };
 
-// And again
-
 const readFileCB = (error, data) => {
   if (error) return console.log('Error: File error');
-  writeFile(join(outbox, file), reverseText(data), (error) => {
-    if (error) return console.log('Error: File could not be saved!');
-    console.log(`${file} was successfully saved in the outbox!`);
-  });
+  writeFile(join(outbox, file), reverseText(data), errorCB);
 };
 
+const errorCB = (error) => {
+  if (error) return console.log('Error: File could not be saved!');
+  console.log(`${file} was successfully saved in the outbox!`);
+};
