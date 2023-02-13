@@ -2,11 +2,6 @@
 ```
 CB_hell – Singleton – Observer – Middlewares – Decorators – Publisher Subscriber 
 ```
-Pub-Sus --> RabbitMQ (llibreria) 
-El nivel 2 es el laborioso, el Nivel 3 es bastante más fácil
-El programa es un server que reb missatges ordenats i els reenvia a tothom del sistema. 
-Publisher.js i Subscriber.js 
-Publisher envia un missatge i es tanca , i el suscriber el reb 
 
 ### Singleton (utiliza clases) 
 
@@ -28,6 +23,11 @@ Array de Arrays de puntuaciones.
 
 ### Publisher-observer
 
+El nivel 2 es el laborioso, el Nivel 3 es bastante más fácil
+El programa es un server que reb missatges ordenats i els reenvia a tothom del sistema. 
+Publisher.js i Subscriber.js 
+Publisher envia un missatge i es tanca , i el suscriber el reb 
+Pub-Sus --> RabbitMQ (llibreria) 
 app.js --> crear usuaris
 temes --> crar temes
 usuari-persones
