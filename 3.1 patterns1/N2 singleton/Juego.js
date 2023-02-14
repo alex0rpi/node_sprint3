@@ -1,22 +1,35 @@
 // Controller role
 const Marcador = require('./Marcador');
+// Only one instance of marcador is allowed on a Singleton pattern.
 
 class Juego {
+  static marcador
   constructor(nombre) {
     this.gameName = nombre;
-    this.players = [];
+    this.marcador = new Marcador()
+    this.marcador.addGame(nombre);
+    console.log(`Game ${nombre} created`);
   }
-  crearMarcador() {
-    const marcador = new Marcador();
+
+  displayGameResults() {
+    this.marcador.displayGameResults(this.gameName);
   }
-  recibirJugador(playerName) {
-    this.players.push(playerName);
+  receivePlayer(player) {
+    this.marcador.addPlayer(this.gameName, player.name);
+    console.log(`${player.name} joined game ${this.gameName}`);
+    this.displayGameResults()
   }
   addPointsToPlayer(player, amount) {
-    this.marcador.modifyResults();
+    this.marcador.modifyScore(this.gameName, player.name, amount);
+    this.displayGameResults();
   }
-  takePointsFromPlayer(player, amount) {
-    this.marcador.modifyResults();
+  removePointsFromPlayer(player, amount) {
+    this.marcador.modifyScore(this.gameName, player.name, amount * -1);
+    this.displayGameResults();
+  }
+  resetGameResults() {
+    this.marcador.resetGameResults(this.gameName);
+    this.displayGameResults();
   }
 }
 

@@ -1,55 +1,56 @@
 class Marcador {
-  static instance;
-  results = [];
+  static instance; // initialize the instance property once the 1st instance is created
+  results = []; // [{game:'', whoWins: '', puntuacions:[{player:'', score:0}]}]
   constructor() {
     if (Marcador.instance) {
+      //check if an instance already exists
       return Marcador.instance;
+      // so if I try to create another instance, I return the one that already exists.
     }
-
     Marcador.instance = this;
   }
-  modifyResults(player, amount) {
+  restetEverything() {
+    this.results = [];
+    console.log(this.results);
+  }
+  addGame(gameName) {
+    const gameExists = this.results.find((item) => (item.game = gameName));
+    if (!gameExists) {
+      this.results.push({
+        game: gameName,
+        whoWins: '',
+        puntuacions: [],
+      });
+      console.log(this.results);
+    }
+  }
+  addPlayer(gameName, playerName) {
+    const game = this.results.find((result) => result.game === gameName);
+    if (game) {
+      game.puntuacions.push({
+        player: playerName,
+        score: 0,
+      });
+    }
+  }
+
+  modifyScore(game, player, amount) {
+    const targetGame = this.results.find((result) => result.game === game);
+    const targetPlayer = targetGame.puntuacions.find((punt) => (punt.player = player));
+    targetPlayer.score = +amount;
+  }
+
+  displayGameResults(game) {
+    let gameHighlight = this.results.find((result) => result.game === game);
+    console.log(gameHighlight);
+  }
+  resetGameResults(game) {
     this.results.map((result) => {
-      if (result.player === player) {
-        result.score += amount;
+      if (result.game === game) {
+        result.puntuacions = [];
+        result.whoWins = '';
       }
     });
   }
 }
-
 module.exports = Marcador;
-
-// ######################################
-/* class Singleton {
-    static instance;
-    data = [];
-  
-    constructor() {
-      if (Singleton.instance) {
-        return Singleton.instance;
-      }
-  
-      Singleton.instance = this;
-    }
-  
-    addData(value) {
-      this.data.push(value);
-    }
-  }
-  
-  class Client {
-    modifySingletonData(value) {
-      const singletonInstance = new Singleton();
-      singletonInstance.addData(value);
-    }
-  }
-  
-  const clientInstance = new Client();
-  clientInstance.modifySingletonData('Data 1');
-  
-  const anotherClientInstance = new Client();
-  anotherClientInstance.modifySingletonData('Data 2');
-  
-  const singletonInstance = new Singleton();
-  console.log(singletonInstance.data); // Output: ['Data 1', 'Data 2'] */
-// ######################################

@@ -17,14 +17,14 @@ const Alex = new Usuari('Alex');
 const Mies = new Usuari('Mies');
 const Pepito = new Usuari('Pepito');
 
-const Avions = new Tema('Avions', Alex);
-const Backend = new Tema('Backend', Mies, Pepito);
+// 1er tema creat amb 2 usuaris
+const Avions = new Tema('Avions');
+Avions.addSubscriber(Alex)
 
+// 2n tema creat amb 2 usuaris
+const Backend = new Tema('Backend');
+Backend.addSubscriber(Mies)
+Backend.addSubscriber(Pepito)
 
-
-Mies.on('missatge', ()=>{
-    Backend.subscriptors.forEach(item => console.log(`Alert ${item.username}, ${Mies.username} has emitted a message`))
-})
-
+// Alex.speak()
 // Mies.speak()
-Pepito.speak()

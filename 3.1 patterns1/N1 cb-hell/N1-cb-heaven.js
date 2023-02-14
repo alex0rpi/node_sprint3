@@ -3,26 +3,23 @@ const { join } = require('path');
 const inbox = join(__dirname, 'inbox');
 const outbox = join(__dirname, 'outbox');
 
+// Read and reverse contents of text files in a directory
+// Define the CB functions separately and outside
 const reverseText = (str) => str.split('').reverse().join('');
 
-// Read and reverse contents of text files in a directory
-readdir(inbox, readdirCB);
+const processFile = (file) => {
+  const checkError = (error) => {
+    if (error) return console.log('Error: File could not be saved!');
+    console.log(`${file} was successfully saved in the outbox!`);
+  };
+  const obtainData = (error, data) => {
+    if (error) return console.log('Error: File error');
+    writeFile(join(outbox, file), reverseText(data), checkError);
+  };
+  readFile(join(inbox, file), 'utf8', obtainData);
+};
 
-// Define the CB functions separately and outside
-
-const readdirCB = (error, files) => {
+readdir(inbox, (error, files) => {
   if (error) return console.log('Error: Folder inaccessible');
-  files.forEach((file) => {
-    readFile(join(inbox, file), 'utf8', readFileCB);
-  });
-};
-
-const readFileCB = (error, data) => {
-  if (error) return console.log('Error: File error');
-  writeFile(join(outbox, file), reverseText(data), errorCB);
-};
-
-const errorCB = (error) => {
-  if (error) return console.log('Error: File could not be saved!');
-  console.log(`${file} was successfully saved in the outbox!`);
-};
+  files.forEach((file) => processFile(file));
+});

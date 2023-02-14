@@ -9,11 +9,10 @@ const EventEmitter = require('events');
 class Usuari extends EventEmitter {
   constructor(userName) {
     super();
-    this.username = userName;
+    this.name = userName;
   }
   speak() {
-    console.log(`Bon dia, sóc el user ${this.username}`);
-    this.emit('missatge');
+    this.emit('missatge', `Bon dia, sóc el user ${this.name}`);
   }
 }
 

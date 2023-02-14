@@ -1,8 +1,8 @@
 class Jugador {
-    constructor(...playerNames) {
-        this.players = [...playerNames]
-    }
-    accessAgame(){}
+  constructor(playerName) {
+    this.name = playerName;
+    console.log(`${playerName} created`)
+  }
 }
 
-module.exports = Jugador
+module.exports = Jugador;
