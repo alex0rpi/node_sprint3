@@ -6,27 +6,37 @@ const Middleware = require('./Middleware');
 const nums = require('./params.json');
 
 const operands = { ...nums };
+let array = Object.values(operands);
 
-const suma = (operands) => {
-  let array = Object.values(operands);
+const suma = (array) => {
   const sum = array.reduce((accum, curr) => (accum += curr));
   console.log(sum);
+};
+
+let mdwSuma = new Middleware(suma)
+
+const resta = (array) => {
   const resta = array.reduce((accum, curr) => (accum -= curr));
   console.log(resta);
-  let multi = array[0]
-  for (let i = 1; i<=array.length-1;i++) {
-    multi = multi*array[i]
+};
+
+let mdw3Resta = new Middleware(resta)
+
+const multiplica = (array) => {
+  let multi = array[0];
+  for (let i = 1; i <= array.length - 1; i++) {
+    multi = multi * array[i];
   }
   console.log(multi);
 };
 
-const resta = () => {
+let mdw3multi = new Middleware(multiplica)
 
-}
+mdwSuma.use()
+mdw3Resta.use()
+mdw3multi.use()
 
-const multiplica = () => {
 
-}
 
 /*
 La idea sería

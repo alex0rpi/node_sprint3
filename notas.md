@@ -3,8 +3,7 @@
 CB_hell – Singleton – Observer – Middlewares – Decorators – Publisher Subscriber 
 ```
 
-### Singleton (utiliza clases) 
-
+## Singleton (utiliza clases) 
 App.js 
 jugador.js
 juego.js
@@ -21,7 +20,8 @@ Array de jugadores o de puntos
 Hay que poder guardar puntuaciones de más de un juego para cada jugador.
 Array de Arrays de puntuaciones.
 
-###  Middlewares
+##  Middlewares
+
 Cas general de middlewares.
 (Node tips) mirar
 instanciar mdw
@@ -31,9 +31,26 @@ definir el mètode use del middleware.
 Caldrà fer servir prototips per a què una instància d'una classe es "mengi" una altra classe.
 classe gestora de mdws
 
-### Publisher-observer
+## Decorators
 
-El nivel 2 es el laborioso, el Nivel 3 es bastante más fácil
+objectos creados con una classe
+array de esos objetos (no es indispensable, se puede hacer de uno en uno)
+divisas convertir a euros
+
+class Producto.js hay que importarla
+app.js nos coge los rpdocutos, los pasa por una función, que es el decorator
+changes.json (con los cambios de moneda)
+decorator.js (no es una clase). no se modifica la clase que se instancia
+
+app.js
+
+Decorator convierte la divisa (necesita un json)
+Buscar definición de "decorator", tiene que hacerle una cosa particular a la clase, añadirle una cosa.
+
+mostrar precio en euros por console en forma de propiedad añadida con el decorator
+
+## Publisher-observer
+
 El programa es un server que reb missatges ordenats i els reenvia a tothom del sistema. 
 Publisher.js i Subscriber.js 
 Publisher envia un missatge i es tanca , i el suscriber el reb 
@@ -52,20 +69,3 @@ Quien esté suscrito que vea un mensaje informativo.
 Llibreria (mòdul) EVENTS
 
 rebs el missatge, recorres l'array per a què et faci console.logs()
-
-### Decorators
-objectos creados con una classe
-array de esos objetos (no es indispensable, se puede hacer de uno en uno)
-divisas convertir a euros
-
-class Producto.js hay que importarla
-app.js nos coge los rpdocutos, los pasa por una función, que es el decorator
-changes.json (con los cambios de moneda)
-decorator.js (no es una clase). no se modifica la clase que se instancia
-
-app.js
-
-Decorator convierte la divisa (necesita un json)
-Buscar definición de "decorator", tiene que hacerle una cosa particular a la clase, añadirle una cosa.
-
-mostrar precio en euros por console en forma de propiedad añadida con el decorator
