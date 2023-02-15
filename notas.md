@@ -21,6 +21,16 @@ Array de jugadores o de puntos
 Hay que poder guardar puntuaciones de más de un juego para cada jugador.
 Array de Arrays de puntuaciones.
 
+###  Middlewares
+Cas general de middlewares.
+(Node tips) mirar
+instanciar mdw
+mdw té un mètode .use() 
+repliquem com va una part de Express
+definir el mètode use del middleware.
+Caldrà fer servir prototips per a què una instància d'una classe es "mengi" una altra classe.
+classe gestora de mdws
+
 ### Publisher-observer
 
 El nivel 2 es el laborioso, el Nivel 3 es bastante más fácil
@@ -42,16 +52,6 @@ Quien esté suscrito que vea un mensaje informativo.
 Llibreria (mòdul) EVENTS
 
 rebs el missatge, recorres l'array per a què et faci console.logs()
-
-###  Middlewares
-Cas general de middlewares.
-(Node tips) mirar
-instanciar mdw
-mdw té un mètode .use() 
-repliquem com va una part de Express
-definir el mètode use del middleware.
-Caldrà fer servir prototips per a què una instància d'una classe es "mengi" una altra classe.
-classe gestora de mdws
 
 ### Decorators
 objectos creados con una classe

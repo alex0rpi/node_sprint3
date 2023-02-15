@@ -1,11 +1,43 @@
-const { num1, num2, type: operacio } = require('./params.json');
-
+/* Middleware
+Crea en un fitxer inicial una petita aplicació que sumi, resti i multipliqui rebent els paràmetres en un JSON.
+Crea en un fitxer extern una classe que emmagatzemi middlewares (funcions).
+Insereix a la invocació middlewares que facin el quadrat, el cub i la divisió entre 2 dels operands inicials en cadascuna de les operacions. Invoca les execucions de la suma, la resta i la multiplicació, de manera que es vagin mostrant per la consola les modificacions que es van fent als valors abans del resultat final. */
 const Middleware = require('./Middleware');
+const nums = require('./params.json');
 
-const operate = (num1, num2, operacio) => {
-  let middleware = new Middleware(operacio);
-  middleware.use(num1, num2);
-  return middleware;
+const operands = { ...nums };
+
+const suma = (operands) => {
+  let array = Object.values(operands);
+  const sum = array.reduce((accum, curr) => (accum += curr));
+  console.log(sum);
+  const resta = array.reduce((accum, curr) => (accum -= curr));
+  console.log(resta);
+  let multi = array[0]
+  for (let i = 1; i<=array.length-1;i++) {
+    multi = multi*array[i]
+  }
+  console.log(multi);
 };
 
-operate(num1, num2, operacio);
+const resta = () => {
+
+}
+
+const multiplica = () => {
+
+}
+
+/*
+La idea sería
+1er MDW (fer el quadrat dels operands)
+es realitza la suma, resta i multiplicació amb els operands modificats
+next()
+
+2n MDW (fer el cub dels operands)
+es realitza la suma, resta i multiplicació amb els operands modificats novament
+next()
+
+3er MDW (divisió entre els 2 operands)
+es realitza la suma, resta i multiplicació amb els operands modificats novamnet
+*/
