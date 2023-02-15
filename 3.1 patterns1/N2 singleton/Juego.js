@@ -22,10 +22,12 @@ class Juego {
   addPointsToPlayer(player, amount) {
     this.marcador.modifyScore(this.gameName, player.name, amount);
     this.displayGameResults();
+    console.log(`player ${player.name} gets ${amount} points.`)
   }
   removePointsFromPlayer(player, amount) {
     this.marcador.modifyScore(this.gameName, player.name, amount * -1);
     this.displayGameResults();
+    console.log(`player ${player.name} loses ${amount} points.`)
   }
   resetGameResults() {
     this.marcador.resetGameResults(this.gameName);

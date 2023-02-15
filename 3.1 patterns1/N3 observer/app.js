@@ -26,6 +26,5 @@ const Backend = new Tema('Backend');
 Backend.addSubscriber(Mies)
 Backend.addSubscriber(Pepito)
 
-// Ejectuar estas ↓ ↓ para probarlo
-// Alex.speak()
-// Mies.speak()
+Alex.speak()
+Mies.speak()

@@ -23,8 +23,8 @@ futbol.receivePlayer(alex);
 futbol.receivePlayer(alfa);
 futbol.receivePlayer(bravo);
 futbol.addPointsToPlayer(alex, 2);
+futbol.addPointsToPlayer(alfa, 4);
+futbol.addPointsToPlayer(bravo, 10);
 
 parchis.receivePlayer(mies);
 parchis.addPointsToPlayer(mies, 10);
-
-// Añadir más comandos a los juegos creados, o crear más juegos 

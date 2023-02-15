@@ -14,11 +14,11 @@ class Marcador {
     console.log(this.results);
   }
   addGame(gameName) {
-    const gameExists = this.results.find((item) => (item.game = gameName));
+    const gameExists = this.results.find((item) => item.game === gameName);
     if (!gameExists) {
       this.results.push({
         game: gameName,
-        whoWins: '',
+        whoWins: 'No one',
         puntuacions: [],
       });
       console.log(this.results);
@@ -33,11 +33,24 @@ class Marcador {
       });
     }
   }
-
+  checkWinner(targetGame) {
+    let highScore = 0;
+    const targetGameIndex = this.results.findIndex((result) => result.game === targetGame);
+    if (targetGameIndex) {
+      targetGame.puntuacions.forEach((item) => {
+        if (item.score >= highScore) {
+          highScore = item.score;
+          targetGame.whoWins = item.player;
+        }
+      });
+    }
+  }
   modifyScore(game, player, amount) {
     const targetGame = this.results.find((result) => result.game === game);
-    const targetPlayer = targetGame.puntuacions.find((punt) => (punt.player = player));
-    targetPlayer.score = +amount;
+    //{game:'', whoWins: '', puntuacions:[{player:'', score:0}]}
+    const targetPlayer = targetGame.puntuacions.find((punt) => punt.player === player);
+    targetPlayer.score += amount;
+    this.checkWinner(targetGame);
   }
 
   displayGameResults(game) {
