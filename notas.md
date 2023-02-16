@@ -20,6 +20,21 @@ Array de jugadores o de puntos
 Hay que poder guardar puntuaciones de más de un juego para cada jugador.
 Array de Arrays de puntuaciones.
 
+## Observer
+
+usuari es pot suscriure a tema, i pot escriure en ell.
+Si no estas suscrit ni rebs ni pots enviar missatges en un tema.
+Extra: que només els suscriptros d'un tema ho puguin fer (escriure i llegir)
+"se ha creado un tema"
+"se ha enviado un msg en tal tema"
+Quien esté suscrito que vea un mensaje informativo.
+app.js --> crear usuaris
+temes --> crar temes
+usuari-persones
+Llibreria (mòdul) EVENTS
+
+rebs el missatge, recorres l'array per a què et faci console.logs()
+
 ##  Middlewares
 
 Cas general de middlewares.
@@ -54,18 +69,4 @@ mostrar precio en euros por console en forma de propiedad añadida con el decora
 El programa es un server que reb missatges ordenats i els reenvia a tothom del sistema. 
 Publisher.js i Subscriber.js 
 Publisher envia un missatge i es tanca , i el suscriber el reb 
-Pub-Sus --> RabbitMQ (llibreria) 
-app.js --> crear usuaris
-temes --> crar temes
-usuari-persones
-
-usuari es pot suscriure a tema, i pot escriure en ell.
-Si no estas suscrit ni rebs ni pots enviar missatges en un tema.
-Extra: que només els suscriptros d'un tema ho puguin fer (escriure i llegir)
-"se ha creado un tema"
-"se ha enviado un msg en tal tema"
-Quien esté suscrito que vea un mensaje informativo.
-
-Llibreria (mòdul) EVENTS
-
-rebs el missatge, recorres l'array per a què et faci console.logs()
+Pub-Sus --> RabbitMQ (llibreria)
