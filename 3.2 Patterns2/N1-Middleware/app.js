@@ -10,7 +10,7 @@ const calculatrice = new Calculadora();
 
 // We inject that instance to the class Middleware
 const app = new Middleware(calculatrice);
-console.log(app);
+// console.log(app);
 
 // Now this middleware instance can use the same methods calculatrice has.
 // console.log(app.suma(operands));
@@ -29,21 +29,18 @@ const secondOperand = Object.fromEntries([operandsArray[1]]);
 
 // * Crec que s'han crear funcions per fer el quadrat cub i divisió i que tinguin el format:
 const quadratMdw = (req, next) => {
-  const quadrat = req.a ** 2;
+  req.a = req.a ** 2;
   console.log(quadrat);
-  return quadrat
   next();
 };
 const cubMdw = (req, next) => {
-  const cub = req.a ** 3;
+  req.a = req.a ** 3;
   console.log(cub);
-  return cub
   next();
 };
-const divisioMdw = (req, next) => {
-  const divisio = req.a / req.b;
+const divisioMdw = (req, res, next) => {
+  res.write(req.a / req.b);
   console.log(divisio);
-  return divisio
   next();
 };
 
@@ -53,15 +50,16 @@ app.use(quadratMdw);
 app.use(cubMdw);
 app.use(divisioMdw);
 
-// Ara les invoquem i anem reassignant les variables operands
+// Ara les invoquem
 
-console.log(app.quadratMdw(firstOperand))
+// ?Preguntar a OMAR porqué no tienen lugar estas llamaadas? :/
 
-// secondOperand = app.quadratMdw(secondOperand);
+console.log(app.quadratMdw(firstOperand));
 
-// firstOperand = app.cubMdw(firstOperand);
+console.log(app.quadratMdw(secondOperand));
 
-// secondOperand = app.cubMdw(secondOperand);
+console.log(app.cubMdw(firstOperand));
 
-// app.divisioMdw(firstOperand, secondOperand);
+console.log(app.cubMdw(secondOperand));
 
+console.log(app.divisioMdw(firstOperand, secondOperand));

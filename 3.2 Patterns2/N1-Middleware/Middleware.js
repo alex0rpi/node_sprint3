@@ -5,16 +5,17 @@ class Middleware {
     this.middlewares = []; //empty array for now, will be mapped later
     this.req = {}; //empty object for now, will be used to get values to work with.
 
-    // Find out what is the prototype of the adopted class
     const adoptedClassPrototype = Object.getPrototypeOf(this.adoptedClass);
-    console.log(adoptedClassPrototype)
+    /* Object.getPrototypeOf() method is used to get the prototype object of the classToBeAdopted. This is because the classToBeAdopted is passed as a constructor function, and not as an instance of a class. */
+    /*  When you use the classToBeAdopted.prototype property, it assumes that classToBeAdopted is an instance of a class, which is not the case in this scenario. */
+    console.log(adoptedClassPrototype.prototype);
     // La propietat "constructor" es una propietat del prototip, que es refereix a la funció constructora amb la què s'ha creat un objecte o funció.
     // Aquesta propietat, també forma part de les "own properties" d'una instancia, i per aquesta en concret no volem crear una funció, però sí per a la resta.
-    console.log(Object.getOwnPropertyNames(adoptedClassPrototype)) // [ 'constructor', 'suma', 'resta', 'multiplica', 'divideix' ]
+    console.log(Object.getOwnPropertyNames(adoptedClassPrototype)); // [ 'constructor', 'suma', 'resta', 'multiplica', 'divideix' ]
     Object.getOwnPropertyNames(adoptedClassPrototype).forEach((funcMethod) => {
       if (funcMethod !== 'constructor') return this.createFn(funcMethod); // per a cada mètode de les propietats de la class adoptada, creem una funció
       // Definim aquest mètode createFn() abaix ↓ ↓
-      // funcMethod és el nom d'una funció que no coneixem previament, pot ser qualssevol. I Sigui quin sigui el nom, 
+      // funcMethod és el nom d'una funció que no coneixem previament, pot ser qualssevol. I Sigui quin sigui el nom,
       // volem crearlo en el context d'aquesta classe Middleware per tar d'adoptar-la com a pròpia.
     });
   }
@@ -22,7 +23,7 @@ class Middleware {
   executeMiddleware(i = 0) {
     // i is given a default value of 0
     if (i < this.middlewares.length) {
-      console.log(this.middlewares[i].call(this, this.req, () => this.executeMiddleware(i + 1)))
+      console.log(this.middlewares[i].call(this, this.req, () => this.executeMiddleware(i + 1)));
       // La funció s'autoinvoca amb el paràmetre index incrementat
     }
   }
@@ -44,7 +45,8 @@ class Middleware {
     // Ara populem l'objecte req i l'array middlewares al constructor ↑↑
     this.middlewares.push(mdw);
     // mdw pot ser una de les funcions que suma, resta, multiplica etc.
-    console.log(this.middlewares)
+    console.log(this.middlewares);
+    this.createFn(mdw);
   }
 }
 module.exports = Middleware;
