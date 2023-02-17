@@ -6,11 +6,12 @@ class Middleware {
     this.req = {}; //empty object for now, will be used to get values to work with.
 
     const adoptedClassPrototype = Object.getPrototypeOf(this.adoptedClass);
-    /* Object.getPrototypeOf() method is used to get the prototype object of the classToBeAdopted. This is because the classToBeAdopted is passed as a constructor function, and not as an instance of a class. */
-    /*  When you use the classToBeAdopted.prototype property, it assumes that classToBeAdopted is an instance of a class, which is not the case in this scenario. */
+    /* Object.getPrototypeOf() method is used to get the prototype object of the classToBeAdopted. 
+    This is because the classToBeAdopted is passed as a constructor function, and not as an instance of a class. */
+    /*  When you use the classToBeAdopted.prototype property, it assumes that classToBeAdopted is an instance of a class,
+    which is not the case in this scenario. */
     console.log(adoptedClassPrototype.prototype);
-    // La propietat "constructor" es una propietat del prototip, que es refereix a la funció constructora amb la què s'ha creat un objecte o funció.
-    // Aquesta propietat, també forma part de les "own properties" d'una instancia, i per aquesta en concret no volem crear una funció, però sí per a la resta.
+    // El constructor es una prop que també forma part de les "own properties" d'una instancia, i per aquesta en concret no volem crear una funció, però sí per a la resta.
     console.log(Object.getOwnPropertyNames(adoptedClassPrototype)); // [ 'constructor', 'suma', 'resta', 'multiplica', 'divideix' ]
     Object.getOwnPropertyNames(adoptedClassPrototype).forEach((funcMethod) => {
       if (funcMethod !== 'constructor') return this.createFn(funcMethod); // per a cada mètode de les propietats de la class adoptada, creem una funció
