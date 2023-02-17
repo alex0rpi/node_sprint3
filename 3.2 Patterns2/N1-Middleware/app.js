@@ -4,23 +4,13 @@ Crea en un fitxer extern una classe que emmagatzemi middlewares (funcions).
 Insereix a la invocació middlewares que facin el quadrat, el cub i la divisió entre 2 dels operands inicials en cadascuna de les operacions. Invoca les execucions de la suma, la resta i la multiplicació, de manera que es vagin mostrant per la consola les modificacions que es van fent als valors abans del resultat final. */
 const Middleware = require('./Middleware');
 const operands = require('./params.json');
-const Calculadora = require('./Calculadora')
+const Calculadora = require('./Calculadora');
 
 const calculatrice = new Calculadora();
 
 // We inject that instance to the class Middleware
 const app = new Middleware(calculatrice);
-console.log(app)
-
-// * Crec que he de crear funcions, middleware per fer el quadrat cub i divisió i que tinguin el format:
-const myMiddleware = (req, next) => {
-  // ...
-  next();
-};
-
-// i després emprear el mètode .use() de la instancia de middleware i incorporar-hi myMiddleware
-app.use(myMiddleware);
-app.myMethod();
+console.log(app);
 
 // Now this middleware instance can use the same methods calculatrice has.
 // console.log(app.suma(operands));
@@ -31,33 +21,47 @@ app.myMethod();
 
 // Now take the first 2 key-value pairs of the imported json object.
 const operandsArray = Object.entries(operands);
-// const twoInitialOperands = Object.fromEntries(operandsArray.slice(0, 2));
 
 const firstOperand = Object.fromEntries([operandsArray[0]]);
-// console.log(firstOperand);
+// console.log(firstOperand); {num1: 5}
 const secondOperand = Object.fromEntries([operandsArray[1]]);
-// console.log(secondOperand);
+// console.log(secondOperand); {num2: 2}
 
-// console.log(Object.values(firstOperand)[0]);
-// console.log(Object.values(secondOperand)[0]);
+// * Crec que s'han crear funcions per fer el quadrat cub i divisió i que tinguin el format:
+const quadratMdw = (req, next) => {
+  const quadrat = req.a ** 2;
+  console.log(quadrat);
+  return quadrat
+  next();
+};
+const cubMdw = (req, next) => {
+  const cub = req.a ** 3;
+  console.log(cub);
+  return cub
+  next();
+};
+const divisioMdw = (req, next) => {
+  const divisio = req.a / req.b;
+  console.log(divisio);
+  return divisio
+  next();
+};
 
-const num1quadrat = app.multiplica(firstOperand, firstOperand);
-const num2quadrat = app.multiplica(secondOperand, secondOperand);
-// console.log(num1quadrat);
-// console.log(num2quadrat);
-/*----------------------------------------*/
-const num1Cub = app.multiplica(firstOperand, firstOperand, firstOperand);
-const num2Cub = app.multiplica(secondOperand, secondOperand, secondOperand);
-// console.log(num1Cub);
-// console.log(num2Cub);
-/*----------------------------------------*/
-// const num1Dividitnum2 = app.divideix(
-//   Object.values(firstOperand)[0],
-//   Object.values(secondOperand)[0]
-// );
-// console.log(num1Dividitnum2);
-/*----------------------------------------*/
+// i després emprear el mètode .use() de la instancia de middleware
+// per incorporar les funcions adalt especificades.
+app.use(quadratMdw);
+app.use(cubMdw);
+app.use(divisioMdw);
 
-// console.log(app.suma(twoInitialOperands))
-// console.log(app.resta(twoInitialOperands))
-// console.log(app.multiplica(twoInitialOperands))
+// Ara les invoquem i anem reassignant les variables operands
+
+console.log(app.quadratMdw(firstOperand))
+
+// secondOperand = app.quadratMdw(secondOperand);
+
+// firstOperand = app.cubMdw(firstOperand);
+
+// secondOperand = app.cubMdw(secondOperand);
+
+// app.divisioMdw(firstOperand, secondOperand);
+

@@ -22,7 +22,7 @@ class Middleware {
   executeMiddleware(i = 0) {
     // i is given a default value of 0
     if (i < this.middlewares.length) {
-      this.middlewares[i].call(this, this.req, () => this.executeMiddleware(i + 1));
+      console.log(this.middlewares[i].call(this, this.req, () => this.executeMiddleware(i + 1)))
       // La funció s'autoinvoca amb el paràmetre index incrementat
     }
   }
@@ -44,6 +44,7 @@ class Middleware {
     // Ara populem l'objecte req i l'array middlewares al constructor ↑↑
     this.middlewares.push(mdw);
     // mdw pot ser una de les funcions que suma, resta, multiplica etc.
+    console.log(this.middlewares)
   }
 }
 module.exports = Middleware;
