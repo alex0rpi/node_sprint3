@@ -3,15 +3,23 @@ Utilitzant RabbitMQ com a element imprescindible crea una queue on una classe Pu
 
 // Emit log messages
 
-const { Publisher } = require('rabbitmq-pubsub');
+const amqp = require('amqplib');
 
-const publisherOptions = {
-    user: 'user',
-    type: 'topic',
-    url: 'amqp://localhost',
-};
-// Advanced Message Queuing Protocol (AMQP)
+async function connect() {
+  try {
+    const connection = await amqp.connect('amqp://localhost:5000');
+    const channel = await connection.createChannel();
+    const queue = 'my-queue';
 
-const publisher = new Publisher(publisherOptions);
+    await channel.assertQueue(queue);
+    setInterval(() => {
+      const message = `Current time is ${new Date().toLocaleTimeString()}`;
+      channel.sendToQueue(queue, Buffer.from(message));
+      console.log(`Sent message: ${message}`);
+    }, 1000);
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-publisher.start().then(() => publisher.publish('key', 'Bon dia'));
+connect();

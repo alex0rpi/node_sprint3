@@ -3,24 +3,22 @@ Utilitzant RabbitMQ com a element imprescindible crea una queue on una classe Pu
 
 // Receive and print log messages
 
-const { Subscriber } = require('rabbitmq-pubsub');
+const amqp = require('amqplib');
 
-const subscriberOptions = {
-  exchange: 'user',
-  queueName: 'user',
-  routingKeys: ['user.register', 'user.resetpassword'],
-};
+async function connect() {
+  try {
+    const connection = await amqp.connect('amqp://localhost:5000');
+    const channel = await connection.createChannel();
+    const queue = 'my-queue';
 
-const subscriber = new Subscriber(subscriberOptions);
+    await channel.assertQueue(queue);
+    channel.consume(queue, (message) => {
+      console.log(`Received message: ${message.content.toString()}`);
+    });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
-const onIncomingMessage = (message) => {
-  debug('onIncomingMessage ', message.fields);
+connect();
 
-  assert(message);
-  assert(message.content);
-  assert(message.content.length > 0);
-
-  subscriber.ack(message);
-};
-
-subscriber.start(onIncomingMessage);
