@@ -13,6 +13,7 @@ const productes = [
   { nom: 'cadira', preu: 40, divisa: 'USD', qty: 4 },
 ];
 
+// Funció calculadora de costos que posteriorment serà decorada
 const calcCost = (productList) => {
   const prodsWithCosts = productList.map((producte) => {
     return {
@@ -29,33 +30,16 @@ const decorator = (calcCost) => {
     const convObj = {};
     convArray.forEach((item) => (convObj[item[0]] = item[1]));
     const convert = (coin, price) => {
-      let convertedPrice;
-      convertedPrice = price * convObj.[`${coin}_EUR`]
-    //   switch (coin) {
-    //     case 'GBP':
-    //       convertedPrice = price * convObj.GBP_EUR;
-    //       break;
-    //     case 'CNY':
-    //       convertedPrice = price * convObj.CNY_EUR;
-    //       break;
-    //     case 'CHF':
-    //       convertedPrice = price * convObj.CHF_EUR;
-    //       break;
-    //     case 'USD':
-    //       convertedPrice = price * convObj.USD_EUR;
-    //       break;
-    //   }
-      return convertedPrice;
+      return price * convObj[`${coin}_EUR`];
     };
     // Funció que decorem ⬇ ⬇
     const result = calcCost.apply(this, arguments);
     // Funció que decorem ⬆ ⬆
-    const euroResult = result.map((item) => {
-      return {
-        ...item,
-        euroCost: convert(item.divisa, item.preu) * item.qty,
-      };
-    });
+    const euroResult = result.map((item) => ({
+      ...item,
+      euroCost: convert(item.divisa, item.preu) * item.qty,
+    }));
+    console.log(euroResult);
     let totalCost = 0;
     for (i in euroResult) {
       totalCost += result[i].cost;
@@ -65,6 +49,6 @@ const decorator = (calcCost) => {
 };
 
 const operate = decorator(calcCost);
-// This is a decorated function, that I can now call with arguments
+// This is a new decorated function, that we can now call with arguments
 
 console.log(operate(productes));
