@@ -1,6 +1,6 @@
 class Calculadora {
   suma({ ...operands }) {
-    // object expected {a:5, b:6, c:10}
+    // object expected {a:5, b:6}
     const array = Object.values(operands);
     const sum = array.reduce((accum, curr) => (accum += curr));
     return sum;
