@@ -16,7 +16,7 @@ class Tema {
     newSub.on('missatge', (content) => {
       this.subscriptors.forEach((subs) => {
         if (subs.name !== newSub.name) {
-          console.log(`Alert ${subs.name}, ${newSub.name} has emitted a message: ${content}`);
+          console.log(`Alert ${subs.name}, on --${this.name}-- ${newSub.name} has emitted a message: ${content}`);
         }
       });
     });

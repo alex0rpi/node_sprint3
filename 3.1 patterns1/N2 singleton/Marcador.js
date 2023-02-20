@@ -1,13 +1,12 @@
 class Marcador {
-  static instance; // initialize the instance property once the 1st instance is created
+  static instancia; // initialize a property we'll call "instancia" once the 1st instancia is created
   results = []; // [{game:'', whoWins: '', puntuacions:[{player:'', score:0}]}]
   constructor() {
-    if (Marcador.instance) {
-      //check if an instance already exists
-      return Marcador.instance;
-      // so if I try to create another instance, I return the one that already exists.
+    if (Marcador.instancia) { //check if an "instancia" property already exists
+      return Marcador.instancia;
+      // so if I try to create another instancia, I return the one that already exists.
     }
-    Marcador.instance = this;
+    Marcador.instancia = this;
   }
   restetEverything() {
     this.results = [];

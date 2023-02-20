@@ -6,16 +6,10 @@ Crea una petita aplicació (o sigui funció que serà decorada) que calculi el c
 
 const conversions = require('./currency_conversions.json');
 
-const productes = [
-  { nom: 'teclat', preu: 55, divisa: 'GBP', qty: 2 },
-  { nom: 'mouse', preu: 10, divisa: 'CNY', qty: 1 },
-  { nom: 'monitor', preu: 30, divisa: 'CHF', qty: 3 },
-  { nom: 'cadira', preu: 40, divisa: 'USD', qty: 4 },
-];
-
 // Funció calculadora de costos que posteriorment serà decorada
 const calcCost = (productList) => {
   const prodsWithCosts = productList.map((producte) => {
+    // He decidit que retorno l'objecte productes enriquit amb una nova propietat cost.
     return {
       ...producte,
       cost: producte.preu * producte.qty,
@@ -33,7 +27,8 @@ const decorator = (calcCost) => {
       return price * convObj[`${coin}_EUR`];
     };
     // Funció que decorem ⬇ ⬇
-    const result = calcCost.apply(this, arguments);
+    const result = calcCost.apply(this, arguments); 
+    // where arguments represents an array-like object that contains the values of the arguments passed to the current context function (the one returned by decorator).
     // Funció que decorem ⬆ ⬆
     const euroResult = result.map((item) => ({
       ...item,
@@ -48,7 +43,16 @@ const decorator = (calcCost) => {
   };
 };
 
+// Declaro una nova variable que serà una funció retornada per decorator
 const operate = decorator(calcCost);
 // This is a new decorated function, that we can now call with arguments
 
+const productes = [
+  { nom: 'teclat', preu: 55, divisa: 'GBP', qty: 2 },
+  { nom: 'mouse', preu: 10, divisa: 'CNY', qty: 1 },
+  { nom: 'monitor', preu: 30, divisa: 'CHF', qty: 3 },
+  { nom: 'cadira', preu: 40, divisa: 'USD', qty: 4 },
+];
+
 console.log(operate(productes));
+// La funció decorada calCost, rebrà sota "arguments" els productes enviats en aquesta crida.

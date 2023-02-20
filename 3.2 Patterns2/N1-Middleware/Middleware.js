@@ -10,9 +10,8 @@ class Middleware {
     This is because the classToBeAdopted is passed as a constructor function, and not as an instance of a class. */
     /*  When you use the classToBeAdopted.prototype property, it assumes that classToBeAdopted is an instance of a class,
     which is not the case in this scenario. */
-    console.log(adoptedClassPrototype.prototype);
     // El constructor es una prop que també forma part de les "own properties" d'una instancia, i per aquesta en concret no volem crear una funció, però sí per a la resta.
-    console.log(Object.getOwnPropertyNames(adoptedClassPrototype)); // [ 'constructor', 'suma', 'resta', 'multiplica', 'divideix' ]
+    // console.log(Object.getOwnPropertyNames(adoptedClassPrototype)); // [ 'constructor', 'suma', 'resta', 'multiplica', 'divideix' ]
     Object.getOwnPropertyNames(adoptedClassPrototype).forEach((funcMethod) => {
       if (funcMethod !== 'constructor') return this.createFn(funcMethod); // per a cada mètode de les propietats de la class adoptada, creem una funció
       // Definim aquest mètode createFn() abaix ↓ ↓
@@ -33,8 +32,8 @@ class Middleware {
     /* We cannot add the new method "func" with dot notation bq then it would create a method with literally the name "func" 
     and we want it to have the name that is passed as parameter to createFn. To achieve that, we use 
     this[func] which will put whatever name it is. */
-    this[func] = (args) => {
-      this.req = args;
+    this[func] = () => {
+      this.req = arguments;
       this.executeMiddleware();
       /* we then return the result of calling the new particular method of the adopted class,
       with the args as parameters */
@@ -48,6 +47,7 @@ class Middleware {
     // mdw pot ser una de les funcions que suma, resta, multiplica etc.
     console.log(this.middlewares);
     this.createFn(mdw);
+    // this.executeMiddleware(mdw);
   }
 }
 module.exports = Middleware;
