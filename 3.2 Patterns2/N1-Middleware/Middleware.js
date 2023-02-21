@@ -6,7 +6,7 @@ class Middleware {
     this.req = {}; //empty object for now, will be used to get values to work with.
 
     const adoptedClassInstancePrototype = Object.getPrototypeOf(this.adoptedClassInstance);
-
+    console.log(Object.getOwnPropertyNames(adoptedClassInstancePrototype));
     Object.getOwnPropertyNames(adoptedClassInstancePrototype).forEach((funcMethod) => {
       if (funcMethod !== 'constructor') return this.createFn(funcMethod);
       // Definim aquest mètode createFn() abaix ↓ ↓
@@ -23,12 +23,16 @@ class Middleware {
     // Dynamically create a method with the given func name
     this[func] = function () {
       this.req = [...arguments]; //arguments per si NO ES UNA ARRAY, si no un objecte. Per això utilitzo el spread operator i entre [], per tal que la info passada a this.req sigui una array d'arguments.
-      // console.log(this.req);
+      console.log(this.req); //[{a:, b:}]
+      console.log(...this.req); //{a:, b:}
       this.executeMiddlewares();
+      // I finalment executem la funció en questió per a què operi amb els valors de this.req tal qual han quedat.
+      return this.adoptedClassInstance[func].call(this, ...this.req);
     };
   }
   use(mdw) {
     this.middlewares.push(mdw);
+    console.log(this.middlewares);
   }
 }
 module.exports = Middleware;

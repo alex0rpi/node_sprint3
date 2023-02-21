@@ -1,27 +1,21 @@
 class Calculadora {
-  suma(req,next) {
-    // object expected {a:5, b:6}
-    // const array = Object.values(operands);
-    const sum = req.a + req.b;
-    console.log(sum);
-    next()
-    // return sum;
+  suma(data) {
+    // argument expected {a:5, b:6}
+    const suma = `La suma dels operands dona: ${data.a + data.b}`;
+    console.log(suma);
+    return suma;
   }
-  resta({ ...operands }) {
-    const array = Object.values(operands);
-    const resta = array.reduce((accum, curr) => (accum -= curr));
+  resta(data) {
+    // argument expected {a:5, b:6}
+    const resta = `La resta dels operands dona: ${data.a - data.b}`;
     console.log(resta);
     return resta;
   }
-  multiplica({ ...operands }) {
-    const array = Object.values(operands);
-    let multi = array[0];
-    for (let i = 1; i <= array.length - 1; i++) {
-      multi = multi * array[i];
-    }
-    console.log(multi);
-    return multi;
+
+  multiplica(data) {
+    const multiplica = `El producte dels operands dona: ${data.a * data.b}`;
+    console.log(multiplica);
+    return multiplica;
   }
 }
-
 module.exports = Calculadora;
