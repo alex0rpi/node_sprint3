@@ -6,11 +6,12 @@ class Middleware {
     this.req = {}; //empty object for now, will be used to get values to work with.
 
     const adoptedClassInstancePrototype = Object.getPrototypeOf(this.adoptedClassInstance);
+    // Accedir a les propietats(mètodes) del prototip de la instància que hem absorvit (suma, resta, multiplicar)
     console.log(Object.getOwnPropertyNames(adoptedClassInstancePrototype));
     Object.getOwnPropertyNames(adoptedClassInstancePrototype).forEach((funcMethod) => {
       if (funcMethod !== 'constructor') return this.createFn(funcMethod);
       // Definim aquest mètode createFn() abaix ↓ ↓
-      // volem crearlo en el context d'aquesta classe Middleware per tar d'adoptar-la com a pròpia.
+      // volem crearlo en el context d'aquesta classe Middleware per tar d'adoptar el mètode com a propi.
     });
   }
   executeMiddlewares(i = 0) {
