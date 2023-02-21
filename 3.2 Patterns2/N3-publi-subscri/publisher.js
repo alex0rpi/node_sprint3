@@ -7,15 +7,15 @@ const amqp = require('amqplib');
 
 async function connect() {
   try {
-    const connection = await amqp.connect('amqp://195.235.110.69:5672');
+    const connection = await amqp.connect('amqp://localhost:5672');
     const channel = await connection.createChannel();
     const queue = 'my-queue';
 
     await channel.assertQueue(queue);
     setInterval(() => {
-      const message = `Current time is ${new Date().toLocaleTimeString()}`;
+      const message = `^^ ara són les ${new Date().toLocaleTimeString()} ^^`;
       channel.sendToQueue(queue, Buffer.from(message));
-      console.log(`Sent message: ${message}`);
+      console.log(`Missatge enviat: ${message}`);
     }, 1000);
   } catch (error) {
     console.error(error);

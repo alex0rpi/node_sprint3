@@ -7,13 +7,13 @@ const amqp = require('amqplib');
 
 async function connect() {
   try {
-    const connection = await amqp.connect('amqp://195.235.110.69:5671');
+    const connection = await amqp.connect('amqp://127.0.0.1:5672');
     const channel = await connection.createChannel();
     const queue = 'my-queue';
 
     await channel.assertQueue(queue);
     channel.consume(queue, (message) => {
-      console.log(`Received message: ${message.content.toString()}`);
+      console.log(`Missatge rebut: ${message.content.toString()}`);
     });
   } catch (error) {
     console.error(error);
