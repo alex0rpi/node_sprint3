@@ -5,15 +5,15 @@ const calcCost = (items) => {
   const convObj = {};
   convArray.forEach((item) => (convObj[item[0]] = item[1]));
 
-  const result = items.map((item) => ({
-    ...item,
-    cost: item.preu * item.qty,
-  }));
-  const euroResult = result.map((item) => ({
+  console.log('input article instances array ⬇')
+  console.table(items)
+
+  const euroResult = items.map((item) => ({
     ...item,
     euroCost: +(item.preu * convObj[`${item.divisa}_EUR`] * item.qty).toFixed(2),
   }));
-  console.log(euroResult); // nova array d'objectes enriquits amb propietat euroCost afegida.
+  console.log('after decoration ⬇')
+  console.table(euroResult); // nova array d'objectes enriquits amb propietat euroCost afegida.
 };
 
 module.exports = calcCost;

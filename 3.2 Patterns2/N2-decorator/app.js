@@ -6,9 +6,9 @@ const Article = require('./Article');
 const calcCost = require('./decorator');
 
 const art1 = new Article('teclat', 55, 'GBP', 2);
-const art2 = new Article('mouse', 10, 'GBP', 1);
-const art3 = new Article('monitor', 30, 'GBP', 3);
-const art4 = new Article('cadira', 40, 'GBP', 4);
+const art2 = new Article('mouse', 10, 'CHF', 1);
+const art3 = new Article('monitor', 30, 'JPY', 3);
+const art4 = new Article('cadira', 40, 'USD', 4);
 
 const articles = [art1, art2, art3, art4];
 
