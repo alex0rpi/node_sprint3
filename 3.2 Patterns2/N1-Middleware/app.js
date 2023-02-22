@@ -5,12 +5,8 @@ const Middleware = require('./Middleware');
 const operands = require('./params.json');
 const Calculadora = require('./Calculadora');
 
-// We inject an instance to the class Middleware
-const app = new Middleware(new Calculadora());
-console.log(app);
-
-// * Crec que s'han crear funcions per fer el quadrat cub i divisió i que tinguin el format:
 const quadratMdw = (data, next) => {
+  //argument expected {a:5, b:6}
   console.log(`Args rebuts per ${quadratMdw.name}: ${data.a} i ${data.b}`);
   data.a = data.a ** 2;
   data.b = data.b ** 2;
@@ -35,13 +31,15 @@ const divisioMdw = (data, next) => {
   next();
 };
 
-// i després emprear el mètode .use() de la instancia de middleware
-// per incorporar les funcions adalt especificades.
+// We inject an instance to the class Middleware
+const app = new Middleware(new Calculadora());
+// console.log(app);
+
+// Emprear el mètode .use() de la instancia de middleware per a incorporar les funcions adalt especificades.
 app.use(quadratMdw);
 app.use(cubMdw);
 app.use(divisioMdw);
 
-// Invocar les funcions per separat, sino, el resultat de multiplica és d'un ordre de magnitud elevat.
-app.suma(operands)
-// app.resta(operands);
-// app.multiplica(operands);
+app.suma(operands);
+app.resta(operands);
+app.multiplica(operands);
