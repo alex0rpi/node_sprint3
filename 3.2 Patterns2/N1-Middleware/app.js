@@ -10,27 +10,27 @@ const app = new Middleware(new Calculadora());
 console.log(app);
 
 // * Crec que s'han crear funcions per fer el quadrat cub i divisió i que tinguin el format:
-const quadratMdw = (req, next) => {
-  console.log(`Args rebuts per ${quadratMdw.name}: ${req.a} i ${req.b}`);
-  req.a = req.a ** 2;
-  req.b = req.b ** 2;
-  console.log(`quadrat: ${req.a} i ${req.b}`);
+const quadratMdw = (data, next) => {
+  console.log(`Args rebuts per ${quadratMdw.name}: ${data.a} i ${data.b}`);
+  data.a = data.a ** 2;
+  data.b = data.b ** 2;
+  console.log(`quadrat: ${data.a} i ${data.b}`);
   console.log('---------------------');
   next();
 };
-const cubMdw = (req, next) => {
-  console.log(`Args rebuts per ${cubMdw.name}: ${req.a} i ${req.b}`);
-  req.a = req.a ** 3;
-  req.b = req.b ** 3;
-  console.log(`cub: ${req.a} i ${req.b}`);
+const cubMdw = (data, next) => {
+  console.log(`Args rebuts per ${cubMdw.name}: ${data.a} i ${data.b}`);
+  data.a = data.a ** 3;
+  data.b = data.b ** 3;
+  console.log(`cub: ${data.a} i ${data.b}`);
   console.log('---------------------');
   next();
 };
-const divisioMdw = (req, next) => {
-  console.log(`Args rebuts per ${divisioMdw.name}: ${req.a} i ${req.b}`);
-  req.a = req.a / 2;
-  req.b = req.b / 2;
-  console.log(`divisió: ${req.a} i ${req.b}`);
+const divisioMdw = (data, next) => {
+  console.log(`Args rebuts per ${divisioMdw.name}: ${data.a} i ${data.b}`);
+  data.a = data.a / 2;
+  data.b = data.b / 2;
+  console.log(`divisió: ${data.a} i ${data.b}`);
   console.log('---------------------');
   next();
 };
@@ -42,6 +42,6 @@ app.use(cubMdw);
 app.use(divisioMdw);
 
 // Invocar les funcions per separat, sino, el resultat de multiplica és d'un ordre de magnitud elevat.
-// app.suma(operands)
+app.suma(operands)
 // app.resta(operands);
-app.multiplica(operands);
+// app.multiplica(operands);
