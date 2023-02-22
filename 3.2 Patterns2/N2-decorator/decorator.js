@@ -5,12 +5,10 @@ const calcCost = (items) => {
   const convObj = {};
   convArray.forEach((item) => (convObj[item[0]] = item[1]));
 
-  const result = items.map((item) => {
-    return {
-      ...item,
-      cost: item.preu * item.qty,
-    };
-  });
+  const result = items.map((item) => ({
+    ...item,
+    cost: item.preu * item.qty,
+  }));
   const euroResult = result.map((item) => ({
     ...item,
     euroCost: +(item.preu * convObj[`${item.divisa}_EUR`] * item.qty).toFixed(2),
