@@ -15,15 +15,17 @@ class Middleware {
     });
   }
   executeMiddlewares(i = 0) {
-    if (i < this.middlewares.length) {
+    if (i < this.middlewares.length) { //recorrerem tota l'array de funcions
       this.middlewares[i].call(this, ...this.req, () => this.executeMiddlewares(i + 1));
-      // Necessari utilitzar ...this.req a fi que la funció rebi cadascun dels diferents paràmetres esperats, a i b. Si no, rebria un sol argument objecte sense els arguments separats.
+      // .call requires the parameters be listed explicitly.
+      // Necessari utilitzar ...this.req a fi que la funció rebi cadascun dels diferents paràmetres esperats, a i b.
+      //  Si no, rebria un sol argument objecte sense els arguments separats.
     }
   }
   createFn(func) {
     // Dynamically create a method with the given func name
     this[func] = function () {
-      this.req = [...arguments]; //arguments per si NO ES UNA ARRAY, si no un objecte. Per això utilitzo el spread operator i entre [], per tal que la info passada a this.req sigui una array d'arguments.
+      this.req = [...arguments]; //arguments per sí NO ES UNA ARRAY, si no un objecte. Per això utilitzo el spread operator i entre [], per tal que la info passada a this.req sigui una array d'arguments.
       console.log(this.req); //[{a:, b:}]
       console.log(...this.req); //{a:, b:}
       this.executeMiddlewares();
