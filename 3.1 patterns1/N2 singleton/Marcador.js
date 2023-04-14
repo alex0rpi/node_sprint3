@@ -7,6 +7,8 @@ class Marcador {
       // so if I try to create another instancia, I return the one that already exists.
     }
     Marcador.instancia = this;
+    // O BIEN
+    // Marcador.instancia = "yes";
   }
   restetEverything() {
     this.results = [];
